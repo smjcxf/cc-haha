@@ -220,6 +220,9 @@ export function ChatInput() {
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
+    // Ignore key events during IME composition (e.g. Chinese input method)
+    if (event.nativeEvent.isComposing) return
+
     // Route file search navigation keys to FileSearchMenu
     if (fileSearchOpen) {
       const key = event.key

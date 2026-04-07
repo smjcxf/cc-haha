@@ -181,6 +181,9 @@ export function EmptySession() {
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
+    // Ignore key events during IME composition (e.g. Chinese input method)
+    if (event.nativeEvent.isComposing) return
+
     // Route file search navigation keys to FileSearchMenu
     if (fileSearchOpen) {
       const key = event.key
@@ -347,7 +350,7 @@ export function EmptySession() {
       <div className="absolute bottom-4 left-0 right-0 flex justify-center px-8">
         <div className="flex w-full max-w-3xl flex-col gap-2">
           <div
-            className="flex flex-col gap-3 rounded-xl border border-[#dac1ba]/15 bg-white p-4"
+            className="relative flex flex-col gap-3 rounded-xl border border-[#dac1ba]/15 bg-white p-4"
             style={{ boxShadow: '0 4px 20px rgba(27, 28, 26, 0.04), 0 12px 40px rgba(27, 28, 26, 0.08)' }}
             onDragOver={(event) => event.preventDefault()}
             onDrop={handleDrop}
@@ -377,7 +380,7 @@ export function EmptySession() {
             {slashMenuOpen && filteredCommands.length > 0 && (
               <div
                 ref={slashMenuRef}
-                className="rounded-xl border border-[#dac1ba]/20 bg-white shadow-[0_18px_48px_rgba(27,28,26,0.12)]"
+                className="absolute bottom-full left-0 right-0 z-50 mb-2 overflow-hidden rounded-xl border border-[#dac1ba]/20 bg-white shadow-[0_18px_48px_rgba(27,28,26,0.12)]"
               >
                 <div className="max-h-[260px] overflow-y-auto py-1">
                   {filteredCommands.map((command, index) => (
