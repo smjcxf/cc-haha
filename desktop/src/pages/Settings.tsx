@@ -614,7 +614,6 @@ function GeneralSettings() {
   )
 }
 
-<<<<<<< HEAD
 // ─── Agents Settings ──────────────────────────────────────
 
 const AGENT_COLORS: Record<string, string> = {
